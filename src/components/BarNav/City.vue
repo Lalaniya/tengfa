@@ -63,7 +63,6 @@ onMounted(() => {
   getJson({
     url: '/static/lib/citytest.json'
   }).then(res => {
-    console.log(res.data);
     arr.value = res.data
   })
 })
@@ -89,50 +88,6 @@ const sure = () => {
 const cancel = () => {
   myemit('cancel')
 }
-// export default {
-//   data() {
-//     return {
-//       arr: [],
-//       num: '',
-//       list:''
-//     }
-//   },
-//   mounted() {
-//     getJson({
-//       url: '/static/lib/citytest.json'
-//     }).then(res => {
-//       console.log(res.data);
-//       this.arr = res.data
-//     })
-//   },
-//   methods: {
-//     // 楼层滚动
-//     onSide(id) {
-//       if (id === '#') {
-//         this.$refs.dinP[0].scrollIntoView()
-//       } else {
-//         this.$refs.dinP[id].scrollIntoView()
-//       }
-//     },
-//     onCity(list) {
-//       if (list === '全国') {
-//         console.log(1);
-//         this.num = '全国'
-//       } else {
-//         this.num = list.name
-//         console.log(list);
-//       }
-//       this.list=list
-//     },
-//     sure() {
-//       this.$emit('getList', this.list)
-//     },
-//     cancel() {
-//         this.$emit('cancel')
-//     }
-//   },
-//   emits: ['getList','cancel'],
-// }
 </script>
 
 <style lang="scss" scoped>

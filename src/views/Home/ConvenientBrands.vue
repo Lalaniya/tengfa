@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <img class="imgs" src="https://www.tf2sc.cn/static/img/%E5%8D%96%E8%BD%A6%E7%9A%84%E5%A5%BD%E5%A4%84.png" alt="">
     <div class="title">
       <h3>我要买车</h3>
       <div>
@@ -106,6 +107,11 @@ export default {
   border-radius: 14px;
   display: flex;
   justify-content: space-between;
+  .imgs{
+    position: absolute;
+    right: 10px;
+    top: -200px;
+  }
   h3 {
     padding-left: 15px;
     border-left: 8px solid #5685fe;
