@@ -182,6 +182,7 @@ const price = (item) => {
         background-color: #fff;
         margin-left: 15px;
         position: relative;
+        z-index: 10;
         cursor: pointer;
         border-radius: 8px;
         .ding {

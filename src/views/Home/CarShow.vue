@@ -35,7 +35,6 @@ onBeforeMount(() => {
 const CarShow = computed(() => {
   return store.state.CarShow
 })
-console.log(CarShow);
 </script>
 
 <style lang="scss" scoped>

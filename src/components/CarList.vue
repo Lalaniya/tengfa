@@ -4,6 +4,13 @@
       :src="props.item.cover"
       alt=""
     >
+    <div class="pit"
+    :class="{bj0:props.item.saleType===0
+    ,bj1:props.item.saleType===1
+    ,bj2:props.item.saleType===2
+    ,bj3:props.item.saleType===3
+    }"
+    >{{sale(props.item.saleType)}}</div>
     <h3>{{props.item.carName}}</h3>
     <p class="message">
         <span>{{times}}</span>
@@ -23,6 +30,21 @@ const props = defineProps(['item'])
 onMounted(() => {
 
 })
+// 小标
+const sale = (type)=>{
+  switch (type) {
+    case 2:
+      return '限时特惠'
+    case 0:
+      return '腾发自营'
+    case 1:
+      return '车主直售'
+    case 3:
+      return '严选车源'
+  }
+  
+}
+console.log(props.item);
 const times=computed(()=>{
     //拿到时间戳算出时间
   return  moment(props.item.dateOfRegistration).format('YYYY [年] MM [月]')
@@ -30,12 +52,37 @@ const times=computed(()=>{
 </script>
 
 <style lang="scss" scoped>
+.pit{
+  top: 165px;
+  left: -1px;
+  position: absolute;
+  width: 64px;
+  height: 20px;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  padding: 1px 3px;
+  border-radius:5px;
+}
+.bj0{
+  background: linear-gradient(90deg, #FF8856 0%, #FF4725 100%);
+}
+.bj1{
+  background: linear-gradient(90deg, #5F98F6 0%, #2E68EB 100%);
+}
+.bj2{
+  background: linear-gradient(90deg, #FF1766 0%, #FF2A23 100%);
+}
+.bj3{
+  background: linear-gradient(90deg, #4DD4D4 0%, #0CBFCD 100%);
+}
 .boxs {
   width: 277px;
   height: 358px;
   background-color: #fff;
   border-radius: 15px;
   overflow: hidden;
+  position: relative;
   img{
     width: 280px;
     height: 187px;
