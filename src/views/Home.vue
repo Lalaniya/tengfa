@@ -12,7 +12,7 @@
       :key="x" 
       :item="item"
       class="list-car"
-      @click="goDetail"
+      @click="goDetail(item)"
       ></CarList>
     </div>
     <TitleText>
@@ -35,6 +35,7 @@ import CarList from '@/components/CarList.vue'
 import CarShow from './Home/CarShow.vue'
 import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useStore } from 'vuex'
+import router from '@/router'
 const store = useStore()
 // 访问vuex  请求车辆列表获取
 onBeforeMount(() => {
@@ -49,8 +50,13 @@ const goList = () => {
   console.log(1);
 }
 // 去车辆详情
-const goDetail = () => {
-  console.log(2);
+const goDetail = (id) => {
+  router.push({
+    name:'detail',
+    query:{
+      ind:id.ind
+    }
+  })
 }
 </script>
 

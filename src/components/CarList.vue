@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="boxs">
     <img
       :src="props.item.cover"
       alt=""
@@ -30,7 +30,7 @@ const times=computed(()=>{
 </script>
 
 <style lang="scss" scoped>
-.box {
+.boxs {
   width: 277px;
   height: 358px;
   background-color: #fff;
@@ -38,6 +38,7 @@ const times=computed(()=>{
   overflow: hidden;
   img{
     width: 280px;
+    height: 187px;
   }
   p {
     box-sizing: border-box;
@@ -73,7 +74,7 @@ const times=computed(()=>{
     margin-top: 15px;
   }
 }
-.box:hover{
+.boxs:hover{
     box-shadow: 0 0 15px 5px #ebebf3;
     h3{
         color: #5685fe !important;

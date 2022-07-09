@@ -3,19 +3,32 @@
     <div class="conten">
       <div class="search-gd">腾发二手车</div>
       <div class="search">
-        <input type="text" v-model="value" placeholder="搜索品牌、车型">
-        <el-button type="primary" class="btn" @click="goSearch">搜索</el-button>
+        <input
+          type="text"
+          v-model="value"
+          placeholder="搜索品牌、车型"
+        >
+        <el-button
+          type="primary"
+          class="btn"
+          @click="goSearch"
+        >搜索</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
-
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router=useRouter()
 let value = ref('')
 const goSearch = () => {
-    console.log(value.value);
+  router.push({
+    name:'search',
+  })
+  console.log(value.value);
+
 }
 </script>
 
@@ -38,28 +51,27 @@ const goSearch = () => {
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .search{
-        width: 640px;
-        height:50px;
-        border: 2px solid #f0f0f0;
-        border-radius: 10px;
-        overflow: hidden;
+    .search {
+      width: 640px;
+      height: 50px;
+      border: 2px solid #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 18px;
+      input {
+        width: 520px;
+        border: none;
+        outline: none;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 0px 15px;
+      }
+      .btn {
         font-size: 18px;
-        input{
-            width: 520px;
-            border: none;
-            outline: none;
-            height: 50px;
-            box-sizing: border-box;
-            padding: 0px 15px;
-            
-        }
-        .btn{
-            font-size: 18px;
-            width: 120px;
-            border-radius: 0px;
-            height:50px;
-        }
+        width: 120px;
+        border-radius: 0px;
+        height: 50px;
+      }
     }
   }
 }

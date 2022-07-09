@@ -1,9 +1,18 @@
 import { createStore } from 'vuex'
-import { getListCar, getCarShow , getSelectModel, getMoreScreen , getConvenient} from '@/api/getHttp'
+import {
+  getListCar,
+  getCarShow,
+  getSelectModel,
+  getMoreScreen,
+  getConvenient,
+  getDetail,
+  getDetailone
+} from '@/api/getHttp'
 const state = {
   Carlist: [],
   CarShow: [],
-  CarSelect: []
+  CarSelect: [],
+  CarDetail: []
 }
 const actions = {
   // 获取主页车辆详情
@@ -21,13 +30,21 @@ const actions = {
     }
   },
   // 搜索页 选择框
-  async reqgetCarSelect({commit}) {
+  async reqgetCarSelect({ commit }) {
     let result = await getSelectModel()
     let resiltone = await getMoreScreen()
     let resultprice = await getConvenient()
-    Promise.all([result,resiltone,resultprice]).then(res=>{
-      commit('REQGETCARSELECT',res)
+    Promise.all([result, resiltone, resultprice]).then((res) => {
+      commit('REQGETCARSELECT', res)
     })
+  },
+  // 车辆详情页面
+  async reqgetDetail({ commit }, val) {
+    let result = await getDetail(val)
+    let resultOne = await getDetailone(val)
+    if (result.data.status === 200 && resultOne.data.status === 200) {
+      commit('REQGETDETAIL', [result.data.data, resultOne.data.data])
+    }
   }
 }
 const mutations = {
@@ -41,11 +58,13 @@ const mutations = {
   },
   // 搜索页
   REQGETCARSELECT(state, value) {
-    
-    state.CarSelect=value.map(item => {
+    state.CarSelect = value.map((item) => {
       return item.data.data
     })
-    console.log(state.CarSelect);
+  },
+  // 车辆详情
+  REQGETDETAIL(state, value) {
+    state.CarDetail = value
   }
 }
 const getters = {}

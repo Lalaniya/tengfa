@@ -28,6 +28,7 @@
   padding: 20px 0;
   .title-text {
     color: #666;
+    font-weight: 600;
     font-size: 24px;
     padding-left: 15px;
     border-left: 5px solid #5685fe;
