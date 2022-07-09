@@ -6,6 +6,10 @@ const routes = [
     component: Home
   },
   {
+    path: '/search',
+    component:() => import('@/views/Search')
+  },
+  {
     path: '/',
     redirect: '/home'
   }

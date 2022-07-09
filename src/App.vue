@@ -21,7 +21,9 @@ ol {
   list-style: none;
 }
 body {
+  padding-top: 70px;
   position: relative;
   z-index: 1;
+  background-color:#f9f9f9 ;
 }
 </style>

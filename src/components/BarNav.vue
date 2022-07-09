@@ -19,7 +19,7 @@
           active-class="red"
         >首页</router-link>
         <router-link
-          to="/"
+          to="/search"
           active-class="red"
         >二手车</router-link>
         <router-link
@@ -66,38 +66,22 @@ const getlist = (list) => {
 const cancel = () => {
   bool.value = false
 }
-// export default {
-//     components:{
-//         City
-//     },
-    // data() {
-    //     return {
-    //         bool:false
-    //     }
-    // },
-//     methods:{
-//         show () {
-//             this.bool=true;
-//         },
-//         getList(list) {
-//             this.bool=false;
-//             console.log(list);
-//         },
-//         cancel() {
-//             this.bool=false
-//         }
-//     }
-// }
 </script>
 
 <style lang="scss" scoped>
 header {
   height: 70px;
-  background-color: rgba(72, 209, 198, 0.455);
+  background-color: #ffffff;
+  position: relative;
+  z-index: 99;
+  position: fixed;
+  width: 100vw;
+  top: 0px;
   .box {
     margin: 0 auto;
     box-sizing: border-box;
     padding-top: 15px;
+    background-color: #ffffff;
   }
   div {
     width: 1200px;
@@ -127,7 +111,7 @@ header {
         padding: 12px 0;
       }
       .red {
-        border-bottom: 3px solid rgb(93, 197, 178);
+        border-bottom: 3px solid #5685fe;
       }
     }
   }
