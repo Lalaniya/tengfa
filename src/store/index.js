@@ -6,13 +6,17 @@ import {
   getMoreScreen,
   getConvenient,
   getDetail,
-  getDetailone
+  getDetailone,
+  getFuWu,
+  getAppNew
 } from '@/api/getHttp'
 const state = {
   Carlist: [],
   CarShow: [],
   CarSelect: [],
-  CarDetail: []
+  CarDetail: [],
+  getFuWu : null,
+  getAppNew:null
 }
 const actions = {
   // 获取主页车辆详情
@@ -45,6 +49,20 @@ const actions = {
     if (result.data.status === 200 && resultOne.data.status === 200) {
       commit('REQGETDETAIL', [result.data.data, resultOne.data.data])
     }
+  },
+  // 服务页面
+  async reqgetFuWu({commit}) {
+    let result = await getFuWu()
+    if (result.data.status === 200) {
+      commit('REQGETFUWU',result.data.data)
+    }
+  },
+  // APP服务页面
+  async reqgetAppNew({commit},id) {
+    let result = await getAppNew (id)
+    if (result.status===200) {
+      commit('REQGETAPPNEW',result.data.data)
+    }
   }
 }
 const mutations = {
@@ -65,6 +83,14 @@ const mutations = {
   // 车辆详情
   REQGETDETAIL(state, value) {
     state.CarDetail = value
+  },
+  // 腾发服务
+  REQGETFUWU(state, value) {
+    state.getFuWu = value
+  },
+  // app服务
+  REQGETAPPNEW(state,val) {
+    state.getAppNew = val
   }
 }
 const getters = {}

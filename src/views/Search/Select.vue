@@ -104,9 +104,12 @@
 import { computed, onBeforeMount, ref } from 'vue';
 import { useStore } from 'vuex';
 import { http } from '@/api/index'
+import { useRoute, useRouter } from 'vue-router';
 // 接收父元素的自定义事件
 const emit = defineEmits(['getArr','getModel','getPrice','getBan'])
 const store = useStore()
+const route = useRoute()
+const router = useRouter()
 onBeforeMount(() => {
   store.dispatch('reqgetCarSelect')
 })
@@ -153,22 +156,40 @@ let str2 = ref('不限')
 // 品牌选择
 const brands = (item) => {
   if (item === '不限') {
+    router.push('/search')
     str.value = item
     emit('getModel',0)
   } else {
     str.value = item.label
     let text = JSON.parse(item.queryRules)
     emit('getBan',text)
+    router.push({
+      path: '/search',
+      query:{
+        i:1,
+        text:item.queryRules,
+        name:item.label
+      }
+    })
   }
   
 }
 const model = (item) => {
   if (item === '不限') {
+    router.push('/search')
     str1.value = item
     emit('getModel',1)
   } else {
     str1.value = item.label
     let text = JSON.parse(item.queryRules)
+    router.push({
+      path: '/search',
+      query:{
+        i:3,
+        text:item.queryRules,
+        name:item.label
+      }
+    })
     emit('getModel',text)
   }
 }
@@ -184,16 +205,40 @@ const qd = () => {
   }
 }
 const price = (item) => {
+  console.log(item.label);
   if (item === '不限') {
+    router.push('/search')
     str2.value = item
     emit('getPrice',2)
   } else {
     str2.value = item.label
     let text = JSON.parse(item.queryRules)
+    router.push({
+      path: '/search',
+      query:{
+        i:2,
+        text:item.queryRules,
+        name:item.label
+      }
+    })
     emit('getPrice',text)
   }
   
 }
+onBeforeMount( () => {
+  let name = route.query.name
+  switch (route.query.i) {
+    case '1':
+    str.value = name  
+      break;
+    case '2':
+    str2.value = name
+      break;
+    case '3':
+    str1.value = name 
+      break;
+  }
+})
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@
     <ConvenientBrands class="posi"></ConvenientBrands>
     <TitleText>
       <template #title-text>二手车</template>
-      <template #go><span @click="goList">查看更多</span></template>
+      <template #go><span @click="goList('/search')">查看更多</span></template>
     </TitleText>
     <div class="list">
       <CarList 
@@ -17,7 +17,7 @@
     </div>
     <TitleText>
       <template #title-text>新车</template>
-      <template #go><span @click="goList">查看更多</span></template>
+      <template #go><span @click="goList('/newcar')">查看更多</span></template>
     </TitleText>
     <TitleText>
       <template #title-text>车展</template>
@@ -46,8 +46,8 @@ const Carlist = computed(() => {
   return store.state.Carlist.content
 })
 // 去车辆列表
-const goList = () => {
-  console.log(1);
+const goList = (nav) => {
+  router.push(nav)
 }
 // 去车辆详情
 const goDetail = (id) => {

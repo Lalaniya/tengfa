@@ -7,6 +7,7 @@
       <div
         class='carone'
         v-if="i<2"
+        @click="add(item.id)"
       >
         <div class="imgs">
           <img
@@ -26,8 +27,10 @@
 
 <script setup>
 import { computed, onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 const store = useStore()
+const router = useRouter()
 //发送请求获取信息
 onBeforeMount(() => {
   store.dispatch('reqgetListCarShow')
@@ -35,6 +38,14 @@ onBeforeMount(() => {
 const CarShow = computed(() => {
   return store.state.CarShow
 })
+const add = (id) => {
+  router.push({
+    name: 'appnew',
+    params:{
+      id
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>

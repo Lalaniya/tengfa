@@ -77,17 +77,26 @@ const sumite = () => {
     http.post('/api/tfcar/car/estimate', qs.stringify({
       name: name.value,
       phone: phone.value,
-      model:models.value,
-      mileage:num.value,
-      dateOfRegistration:times.value,
+      model: models.value,
+      mileage: num.value,
+      dateOfRegistration: times.value,
       type: 0
     })).then(res => {
-        if (res.status===200) {
-            ElMessage(res.data.data)
-            location.reload()
-        }
+      if (res.status === 200) {
+        ElMessage({
+          showClose: true,
+          message: res.data.data,
+          center: true,
+          type: 'success'
+        })
+        times.value=''
+        num.value=''
+        models.value=''
+        phone.value=''
+        name.value=''
+      }
     })
-    
+
 
   }
 }

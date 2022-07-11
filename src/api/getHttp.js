@@ -15,3 +15,7 @@ export const getDetail = (x) =>
   http({ url: '/api/tfcar/car/getCarBasicInfoVo/' + x, method: 'GET' })
 export const getDetailone = (x) =>
   http({ url: `/api/tfcar/car/basicInfo/` + x, method: 'GET' })
+// 腾发服务
+export const getFuWu = () => http({url:'/api/tfcar/website/tengfaService',method:'GET'}) 
+// app升级服务页面
+export const getAppNew = (id) => http({url:'/api/tfcar/website/news/'+id,method:'GET'})

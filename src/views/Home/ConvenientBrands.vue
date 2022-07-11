@@ -9,7 +9,7 @@
             class="brands"
             v-for="item in brands"
             :key="item.sortValue"
-            @click="goBrands(item.sortValue)"
+            @click="goBrands(item)"
           >
             <img
               :src="item.logo"
@@ -23,14 +23,14 @@
         <div
           v-for="item in price"
           :key="item.label"
-          @click="goPrice(item.sortValue)"
+          @click="goPrice(item)"
         >{{item.label}}</div>
       </div>
       <div class="model">
         <div
           v-for="item in model"
           :key="item.label"
-          @click="goModel(item.sortValue)"
+          @click="goModel(item)"
         >{{item.label}}</div>
       </div>
     </div>
@@ -85,13 +85,37 @@ export default {
   },
   methods: {
     goBrands(id) {
-      console.log(id);
+      let text = id.queryRules
+      this.$router.push({
+        path:'/search',
+        query:{
+          i:1,
+          text,
+          name:id.label
+        }
+      })
     },
     goPrice(id) {
-      console.log(id);
+      let text = id.queryRules
+      this.$router.push({
+        path:'/search',
+        query:{
+          i:2,
+          text,
+          name:id.label
+        }
+      })
     },
     goModel(id) {
-      console.log(id);
+      let text = id.queryRules
+      this.$router.push({
+        path:'/search',
+        query:{
+          i:3,
+          text,
+          name:id.label
+        }
+      })
     }
   }
 }

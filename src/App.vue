@@ -1,6 +1,7 @@
 <template>
   <div>
     <BarNav></BarNav>
+    <SideNav></SideNav>
     <router-view></router-view>
     <IndexBottom></IndexBottom>
   </div>
@@ -9,6 +10,7 @@
 <script setup>
 import IndexBottom from '@/components/IndexBottom.vue'
 import BarNav from '@/components/BarNav.vue'
+import SideNav from '@/components/SideNav.vue'
 </script>
 
 <style>

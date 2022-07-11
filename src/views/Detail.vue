@@ -1,5 +1,5 @@
 <template>
-  <div v-if="list.length===0?false:true">
+  <div v-if="list">
     <div class="box">
       <div class="detail-div">
         <div class="left">
@@ -225,7 +225,11 @@ onBeforeMount(() => {
   store.dispatch('reqgetDetail', route.query.ind)
 });
 const list = computed(() => {
-  return store.state.CarDetail
+  if (store.state.CarDetail.length===0) {
+    return null
+  }else {
+    return store.state.CarDetail
+  }
 })
 // 切换图片
 let image = ref('https://img9.vilipix.com/picture/pages/regular/2021/03/24/18/11/88725167_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000')
@@ -233,7 +237,7 @@ const photo = computed(() => {
   if (list.value.length === 0) {
     return []
   } else {
-    let imgs = list?.value[1]?.photoVo.detail.split(',')
+    let imgs = list.value[1]?.photoVo?.detail.split(',')
     image.value = imgs[0]
     return imgs
   }
@@ -244,7 +248,7 @@ const addimg = (img) => {
 }
 // 计算时间
 const atime = (times) => {
-  let x = times.split("-")
+  let x = times?.split("-")
   return x[0] + '年' + x[1] + '月'
 }
 // 在线咨询跳转

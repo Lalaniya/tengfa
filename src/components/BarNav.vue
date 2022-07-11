@@ -38,7 +38,7 @@
           active-class="red"
         >腾发金融</router-link>
         <router-link
-          to="/"
+          to="/fuwu"
           active-class="red"
         >腾发服务</router-link>
         <router-link

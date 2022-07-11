@@ -6,9 +6,9 @@
       @getPrice="getPrice"
       @getBan="getBan"
     ></Select>
-    <CarTop 
-    @leftText="leftText"
-    @rightText="rightText"
+    <CarTop
+      @leftText="leftText"
+      @rightText="rightText"
     ></CarTop>
     <div class="list">
       <CarList
@@ -38,9 +38,11 @@ import CarList from '@/components/CarList.vue'
 import CarTop from './Search/CarTop.vue'
 // import CarList from '@/components/CarList.vue'
 import { http } from '@/api/index'
-import { nextTick, onBeforeMount, ref, watch } from 'vue';
-import router from '@/router';
+import { nextTick, onBeforeMount, onBeforeUpdate, onMounted, ref, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { isArray } from '@vue/shared';
+const router = useRouter()
+const route = useRoute()
 let total = ref(1)
 // 渲染数据
 let list = ref([])
@@ -54,56 +56,10 @@ const Conent = (x) => {
     total.value = res.data.data.totalElements
   })
 }
-onBeforeMount(() => {
-  Conent(total.value)
-
-})
-// let currentPage = ref(1)
-const handleCurrentChange = (val) => {
-  Conent(val)
-}
-watch(list, () => {
-  nextTick(() => {
-    document.documentElement.scrollTop = 0
-  })
-})
-// 跳转详情
-const goDetail = (item) => {
-  router.push({
-    path: 'detail',
-    query: {
-      ind: item.ind
-    }
-  })
-}
-// 车辆排序
-const rightText = (text) => {
-  http({
-    url:'/api/tfcar/car/list?page=1&sort='+text,
-    method: 'GET'
-  }).then(res => {
-    list.value = res.data.data.content
-    total.value = res.data.data.totalElements
-  })
-}
-// 车辆来源
-// https://api.tf2sc.cn/api/tfcar/car/list?page=1&saleType=0
-const leftText = (num) => {
-  if (num === 'z') {
-      Conent(1)
-  } else {
-    http({
-      url: '/api/tfcar/car/list?page=1&saleType=' + num,
-      method: 'GET'
-    }).then(res => {
-      list.value = res.data.data.content
-      total.value = res.data.data.totalElements
-    })
-  }
-}
 // 品牌车系 价格选择
 // /api/tfcar/car/list?page=1&currentPriceLt=10
 const getModel = (lists) => {
+  console.log(lists);
   let text = ''
   if (lists == 1) {
     text = 'carModel='
@@ -123,7 +79,6 @@ const getModel = (lists) => {
 }
 const getPrice = (lists) => {
   let text = '';
-  console.log(lists);
   if (lists === 2) {
     text = ''
   } else {
@@ -136,7 +91,6 @@ const getPrice = (lists) => {
       text = '&' + text + '=' + lists[text]
     }
   }
-  console.log(text);
   http({
     url: '/api/tfcar/car/list?page=1' + text,
     method: 'GET'
@@ -161,6 +115,79 @@ const getBan = (lists) => {
   })
 
 }
+onBeforeMount(() => {
+  
+  if (route.query.value) {
+    http({
+      url: '/api/tfcar/car/list?page=1&carName=' + route.query.value,
+      method: 'GET'
+    }).then(res => {
+      list.value = res.data.data.content
+      total.value = res.data.data.totalElements
+    })
+  }else if (route.query.i) {
+    let text = JSON.parse(route.query.text)
+    let name = route.query.name
+    switch (route.query.i) {
+      case '1':
+        getBan(text)
+        break;
+      case '2':
+        getPrice(text)
+        break;
+      case '3':
+        getModel(text)
+        break;
+    }
+  }  else {
+    Conent(total.value)
+  }
+})
+
+// let currentPage = ref(1)
+const handleCurrentChange = (val) => {
+  Conent(val)
+}
+watch(list, () => {
+  nextTick(() => {
+    document.documentElement.scrollTop = 0
+  })
+})
+// 跳转详情
+const goDetail = (item) => {
+  router.push({
+    path: 'detail',
+    query: {
+      ind: item.ind
+    }
+  })
+}
+// 车辆排序
+const rightText = (text) => {
+  http({
+    url: '/api/tfcar/car/list?page=1&sort=' + text,
+    method: 'GET'
+  }).then(res => {
+    list.value = res.data.data.content
+    total.value = res.data.data.totalElements
+  })
+}
+// 车辆来源
+// https://api.tf2sc.cn/api/tfcar/car/list?page=1&saleType=0
+const leftText = (num) => {
+  if (num === 'z') {
+    Conent(1)
+  } else {
+    http({
+      url: '/api/tfcar/car/list?page=1&saleType=' + num,
+      method: 'GET'
+    }).then(res => {
+      list.value = res.data.data.content
+      total.value = res.data.data.totalElements
+    })
+  }
+}
+
 // 获取用户选择内容
 let obj = {}
 const getArr = (lists) => {

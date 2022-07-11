@@ -7,6 +7,7 @@
           type="text"
           v-model="value"
           placeholder="搜索品牌、车型"
+          @keyup.enter="goSearch"
         >
         <el-button
           type="primary"
@@ -26,9 +27,10 @@ let value = ref('')
 const goSearch = () => {
   router.push({
     name:'search',
+    query:{
+      value:value.value
+    }
   })
-  console.log(value.value);
-
 }
 </script>
 
