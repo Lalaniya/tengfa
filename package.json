@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open --host=192.168.205.101",
+    "serve": "vue-cli-service serve --open --host=192.168.205.22",
     "build": "vue-cli-service build"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "element-plus": "^2.2.8",
     "moment": "^2.29.4",
     "nprogress": "^0.2.0",
+    "qs": "^6.11.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

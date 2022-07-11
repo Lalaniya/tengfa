@@ -2,15 +2,18 @@
   <header>
     <div class="box">
       <div class="left">
-        <img
+        <router-link to="/home" custom v-slot="{navigate}">
+          <img
           src="https://www.tf2sc.cn/static/img/%E8%85%BE%E5%8F%91.png"
           alt=""
+          @click="navigate"
         >
+        </router-link>
         <p @click="show">
           <el-icon color="#a6aac2">
             <AddLocation />
           </el-icon>
-          <span>地址</span>
+          <span>{{city}}</span>
         </p>
       </div>
       <div class="right">
@@ -23,11 +26,11 @@
           active-class="red"
         >二手车</router-link>
         <router-link
-          to="/"
+          to="/newcar"
           active-class="red"
         >新车</router-link>
         <router-link
-          to="/"
+          to="/sellcar"
           active-class="red"
         >卖车</router-link>
         <router-link
@@ -56,11 +59,13 @@
 import City from './BarNav/City.vue'
 import { ref } from 'vue';
 let bool = ref(false)
+let city = ref('全国')
 const show = () => {
   bool.value = true
 }
 const getlist = (list) => {
   console.log(list,123);
+  city.value=list.name
   bool.value = false
 }
 const cancel = () => {
@@ -98,6 +103,9 @@ header {
           font-size: 14px;
           color: #333;
           line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

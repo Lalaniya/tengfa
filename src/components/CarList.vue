@@ -44,7 +44,6 @@ const sale = (type)=>{
   }
   
 }
-console.log(props.item);
 const times=computed(()=>{
     //拿到时间戳算出时间
   return  moment(props.item.dateOfRegistration).format('YYYY [年] MM [月]')

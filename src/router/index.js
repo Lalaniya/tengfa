@@ -16,6 +16,15 @@ const routes = [
     component: () => import('@/views/Detail')
   },
   {
+    path: '/newcar',
+    name: 'newcar',
+    component: () => import('@/views/NewCar')
+  },
+  {
+    path: '/sellcar',
+    component: () => import('@/views/SellCar')
+  },
+  {
     path: '/',
     redirect: '/home'
   }

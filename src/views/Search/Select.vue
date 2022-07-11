@@ -37,9 +37,9 @@
     <li>
       <span>价格：</span>
       <div>
-        <span 
-        :class="{blues:str2==='不限'}"
-        @click="price('不限')"
+        <span
+          :class="{blues:str2==='不限'}"
+          @click="price('不限')"
         >不限</span>
         <span
           v-for="item in CarModel?.convenientPrices"
@@ -49,11 +49,19 @@
         >{{item.label}}</span>
       </div>
       <div class="put">
-        <input type="text" placeholder="输入金额">
+        <input
+          type="text"
+          placeholder="输入金额"
+          v-model.number="min"
+        >
         <span>——</span>
-        <input type="text" placeholder="输入金额">
+        <input
+          type="text"
+          placeholder="输入金额"
+          v-model.number="max"
+        >
         <span class="ss">万</span>
-        <button>确定</button>
+        <button @click="qd">确定</button>
       </div>
     </li>
     <li>
@@ -68,15 +76,18 @@
           <div class="title">
             <span ref="str_dom">{{item[0].attrZh}}</span>
             <el-icon>
-              <ArrowUp  class="none" />
-              <ArrowDown  class="block" />
+              <ArrowUp class="none" />
+              <ArrowDown class="block" />
             </el-icon>
           </div>
           <div
             class="ding"
             ref="_dom"
           >
-            <p class="blue">不限</p>
+            <p
+              class="blue"
+              @click="addSearch('',i)"
+            >不限</p>
             <p
               v-for="list in item"
               :key="list.queryRules"
@@ -92,6 +103,9 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useStore } from 'vuex';
+import { http } from '@/api/index'
+// 接收父元素的自定义事件
+const emit = defineEmits(['getArr','getModel','getPrice','getBan'])
 const store = useStore()
 onBeforeMount(() => {
   store.dispatch('reqgetCarSelect')
@@ -122,8 +136,16 @@ const _hide = (i) => {
   _dom.value[i].style.display = 'none'
 }
 const addSearch = (list, i) => {
-  str_dom.value[i].innerHTML = list.label
-  console.log(list);
+  if (list) {
+    str_dom.value[i].innerHTML = list.label
+    _dom.value[i].style.display = 'none'
+    // 获取车辆选择信息
+    let text = JSON.parse(list.queryRules)
+    emit('getArr', text)
+  } else {
+    str_dom.value[i].innerHTML = '不限'
+    emit('getArr', i)
+  }
 }
 let str = ref('不限')
 let str1 = ref('不限')
@@ -132,26 +154,45 @@ let str2 = ref('不限')
 const brands = (item) => {
   if (item === '不限') {
     str.value = item
+    emit('getModel',0)
   } else {
     str.value = item.label
+    let text = JSON.parse(item.queryRules)
+    emit('getBan',text)
   }
-  console.log(item);
+  
 }
 const model = (item) => {
   if (item === '不限') {
     str1.value = item
+    emit('getModel',1)
   } else {
     str1.value = item.label
+    let text = JSON.parse(item.queryRules)
+    emit('getModel',text)
   }
-  console.log(item);
+}
+// 车辆价格区间
+let min = ref ()
+let max =ref ()
+const qd = () => {
+  if (min.value>max.value) {
+    location.reload()
+  } else {
+   let text ={currentPrices:[min.value,max.value]}
+   emit('getPrice',text)
+  }
 }
 const price = (item) => {
   if (item === '不限') {
     str2.value = item
+    emit('getPrice',2)
   } else {
     str2.value = item.label
+    let text = JSON.parse(item.queryRules)
+    emit('getPrice',text)
   }
-  console.log(item);
+  
 }
 </script>
 
@@ -221,15 +262,15 @@ const price = (item) => {
           color: #fff;
         }
       }
-      .none{
+      .none {
         display: none;
       }
       li:hover {
         border: 1px solid #5685fe;
-        .block{
+        .block {
           display: none;
         }
-        .none{
+        .none {
           display: block;
         }
       }
@@ -238,19 +279,19 @@ const price = (item) => {
   .blues {
     background-color: #5685fe;
   }
-  .put{
+  .put {
     display: flex;
     align-content: center;
     margin-left: 20px;
     height: 40px;
     border-radius: 10px;
     overflow: hidden;
-    span{
+    span {
       margin: 0;
       height: 40px;
-      line-height:30px;
+      line-height: 30px;
     }
-    input{
+    input {
       width: 90px;
       height: 40px;
       border: 1px solid #f0f0f0;
@@ -259,19 +300,19 @@ const price = (item) => {
       text-align: center;
       outline: none;
     }
-    button{
+    button {
       width: 68px;
       height: 40px;
       border: none;
       background-color: #f5f7fe;
     }
-    .ss{
+    .ss {
       margin: 0px 5px;
     }
   }
-  .put:hover{
+  .put:hover {
     box-shadow: 0 0 10px rgb(205, 205, 205);
-    button{
+    button {
       background-color: #5685fe;
       color: #fff;
     }
