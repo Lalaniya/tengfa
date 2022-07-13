@@ -248,8 +248,12 @@ const addimg = (img) => {
 }
 // 计算时间
 const atime = (times) => {
-  let x = times?.split("-")
-  return x[0] + '年' + x[1] + '月'
+  if (times===undefined) {
+    return '无'
+  } else {
+    let x = times?.split("-")
+    return x[0] + '年' + x[1] + '月'
+  }
 }
 // 在线咨询跳转
 const goZiXun = () => {
@@ -277,7 +281,7 @@ const goDetail = (list) => {
   })
 }
 onBeforeRouteUpdate((to,from)=>{
-    store.dispatch('reqgetDetail', to.query.ind)
+    store.dispatch('reqgetDetail', route.query.ind)
     http({ url: '/api/tfcar/car/similarRecommendation/' + route.query.ind, method: 'GET' }).then(res => {
     if (res.data.status === 200) {  
       list_Car.value = res.data.data
